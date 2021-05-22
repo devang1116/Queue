@@ -1,66 +1,93 @@
 //
 //  main.cpp
-//  queue_array_implementation
+//  Queue_list_implementation
 //
-//  Created by Devang Papinwar on 19/02/21
+//  Created by Devang Papinwar on 19/02/21.
 //
 
 #include <iostream>
-#define SIZE 10
 using namespace std;
 
-int size=0;
-
+int size = 0;
+int fron = -1;
+int rea = -1;
 struct Person
 {
-    int stack[SIZE];
-    int front = -1;
-    int rear = -1;
+    int data;
+    Person* next;
 };
 
-void display(Person* node)
+struct Person* front = NULL;
+struct Person* rear = NULL;
+
+void display()
 {
-    cout << " Queue : " << endl ;
-    for(int i = node->front ; i <= node->rear ; i++)
+    cout << " Queue : ";
+    struct Person* temp = front;
+    while (temp != NULL)
     {
-        cout << " Data : " << node->stack[i] << " -- " ;
+          cout << " Node : " << temp->data << " -- ";
+          temp = temp->next;
     }
 }
 
-void enqueue(Person* node)
+void enqueue()
 {
     int data;
-    cout << " REAR : " << node->rear << " FRONT : " << node->front;
+    struct Person* new_node = (struct Person*) malloc(sizeof(struct Person));
+    cout << " REAR : " << rea << " FRONT : " << fron;
     cout << " Enter the Data : ";
-    if(node->front == 0 && node->rear == 19)
-    {
-        cout << " Queue Full ";
-    }
     cin >> data;
-    if(node->front == -1)
-        node->front = 0;
-    node->rear++;
-    node->stack[node->rear] = data;
+    if( rear == NULL )
+    {
+        rear = new_node;
+        rear->next = NULL;
+        rear->data = data;
+        front = rear;
+        rea++;
+        fron = 0;
+    }
+    else{
+        struct Person* node=(struct Person*)malloc(sizeof(struct Person));
+        rear->next = node;
+        node->data = data;
+        node->next = NULL;
+        rear = node;
+        rea++;
+        fron = 0;
+    }
 }
 
-void dequeue(Person* node)
+void dequeue()
 {
-    node->front = NULL;
-    node->front++;
-    cout << " REAR : " << node->rear << " FRONT : " << node->front;
+    if( fron == rea )
+    {
+        cout << " Queue is Empty";
+    }
+    else
+    {
+        struct Person* node = front;
+        if( node->next != NULL )
+        {
+            node = node->next;
+            front = node;
+        }
+        fron++;
+        cout << " REAR : " << rea << " FRONT : " << fron;
+    }
 }
 
 int main(int argc, const char * argv[])
 {
-    struct Person* node = (struct Person*) malloc(sizeof(struct Person));
-    //enqueue(node);
-    //enqueue(node);
-    node->front=-1;
-    node->rear=-1;
-    enqueue(node);
-    enqueue(node);
-    enqueue(node);
-    enqueue(node);
-    dequeue(node);
-    display(node);
+
+    enqueue();
+    enqueue();
+    enqueue();
+    enqueue();
+    display();
+    dequeue();
+    dequeue();
+    display();
+    dequeue();
+    display();
 }
