@@ -2,7 +2,7 @@
 //  main.cpp
 //  queue_array_implementation
 //
-//  Created by Devang Papinwar on 19/02/21.
+//  Created by Devang Papinwar on 19/02/21
 //
 
 #include <iostream>
